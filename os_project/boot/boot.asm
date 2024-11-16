@@ -20,6 +20,8 @@ stack_top:
 section .text
 global _start
 extern kernel_main
+extern idt_load
+extern idtp
 
 _start:
     mov esp, stack_top
@@ -28,3 +30,8 @@ _start:
 .hang:
     hlt
     jmp .hang
+
+; IDT loading routine
+idt_load:
+    lidt [idtp]
+    ret
